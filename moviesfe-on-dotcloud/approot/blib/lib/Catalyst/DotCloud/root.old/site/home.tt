@@ -1,0 +1,25 @@
+<h1>Home</h1>
+
+<h3>Recently released DVDs</h3>
+
+<p>
+<ul>
+[% USE Dumper(Pad="<br>") %]
+[%# Dumper.dump(releases) %]
+[% FOREACH r = releases %] 
+<li><a href="/site/movie/[% r.id %]/[% r.title | replace('\s+', '-')| url %]">[% r.title %] ([% r.year %])</a></li>
+[% END %]
+</ul>
+</p>
+
+<h3>Latest Reviews</h3>
+
+<p>
+<ul>
+[% FOREACH r = reviews %] 
+<li><a href="/site/movie/[% r.movie.id %]/[% r.movie.title | replace('\s+', '-')| url %]">[% r.movie.title %]</a> <i>([% r.user.firstname %] [% r.user.lastname %])</i>
+[% i = 1 ; WHILE i <= r.rating ; star ; i = i + 1 ; END %]&nbsp;
+[% r.review %]</li>
+[% END %]
+</ul>
+</p>

@@ -1,0 +1,22 @@
+
+
+<div id="header_banner" class="featured_banner_dark">
+  <div class="container">
+
+<div id="liquid">
+	<span class="previous"></span>
+	<div class="wrapper">
+<ul>
+[% FOREACH r  IN releases %]
+<li><a href="/site/movie/[% r.id %]"><img src="[% r.image || r.supplier_image %]" width="88"></a></li>
+[% END %]
+</ul>
+	</div>
+	<span class="next"></span>
+</div>
+
+
+    <div class="clear"></div>
+  </div>
+</div>
+</div><!-- end #header -->

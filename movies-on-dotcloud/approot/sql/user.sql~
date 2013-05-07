@@ -1,0 +1,28 @@
+
+DROP TABLE IF EXISTS user;
+CREATE TABLE user (
+       user_id   INT NOT NULL AUTO_INCREMENT,
+       email	 varchar(255),
+       password  char(40),		# md5_base64
+       token	 varchar(128),
+       firstname char(16),
+       lastname  char(16),
+       fb_id	 int,
+       PRIMARY KEY (user_id),
+       key token (token),
+       key fb_id (fb_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+# this didnt work inside the create table!
+ alter table user add unique(email) ;
+
+
+INSERT into user VALUES (0, 'davehodg@me.com',   '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', NULL, 'Dave', 'Hodgkinson') ;
+INSERT into user VALUES (0, 'davehodg+1@me.com', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', NULL, 'Dave1', 'Hodgkinson') ;
+INSERT into user VALUES (0, 'davehodg+2@me.com', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', NULL, 'Dave2', 'Hodgkinson') ;
+INSERT into user VALUES (0, 'davehodg+3@me.com', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', NULL, 'Dave3', 'Hodgkinson') ;
+INSERT into user VALUES (0, 'davehodg+4@me.com', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', NULL, 'Dave4', 'Hodgkinson') ;
+INSERT into user VALUES (0, 'davehodg+5@me.com', '5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8', NULL, 'Dave5', 'Hodgkinson') ;
+
+
+

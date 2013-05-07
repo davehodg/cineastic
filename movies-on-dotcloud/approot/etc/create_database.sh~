@@ -1,0 +1,8 @@
+mysql> drop table product ;
+mysql> drop table amazon;
+mysql> drop table movie ;
+mysql> drop table friend ;
+mysql> drop table user ;
+
+
+

@@ -1,0 +1,113 @@
+<h2 class="page-title">[% movie.0.title %] ([% movie.0.year %])</h2>
+
+<div class="entry-content" id="page-content">
+  [% USE HTML %] 
+  [% IF  movie.0.genres.0.defined %]
+  <p>
+    [
+    [% FOREACH g = movie.0.genres %]
+    <a href="/site/genres/[% g.genre.id %]">[% HTML.escape(g.genre.title) %]</a>&nbsp;
+    [% END %]
+    ]
+  </p>
+  [% END # genres %]
+
+  [% IF  movie.0.actors.0.defined %]
+  <p>
+    [
+    [% FOREACH a = movie.0.actors %]
+    <a href="/site/actors/[% a.actor.id %]">[%  HTML.escape(a.actor.title) %]</a>&nbsp;
+    [% END %]
+    ]
+  </p>
+  [% END # actors %]
+
+
+  <p>
+    <img class="alignleft" src="[% movie.0.rt_img_det || movie.0.products.0.image_url %]" align="left" alt="[% movie.0.title %]" />
+
+    <a href="/site/review/?wanttosee=1&movie_id=[% movie.0.id %]">[W]</a>
+    [% movie.0.rt_synopsis || movie.0.products.0.description %]
+    
+    <br />
+    
+    <div class="clear"></div>
+    [% IF movie.0.rt_critic %]
+    <div id="post_list_wrap">
+      <div class="post post-archive">
+	[% IF  movie.0.rt_critic >= 60 ; image = "fresh.png" ; ELSE ; image = "rotten.png"; END %]
+	<img class="alignleft" src="[% c.config.staticx %]/static/images/[% image %]" width="120" alt="[% image %]">Rotten Tomatoes Rating: [% movie.0.rt_critic %]<br />
+	<a href="http://www.rottentomatoes.com/m/[% movie.0.rt_id %]">View on Rotten Tomatoes</a><br />
+	<a href="http://www.imdb.com/title/tt[% movie.0.rt_imdb %]">View on IMDB</a><br />
+      </div><!-- end .post -->
+    </div>
+    [% END # rt_critic %]	    
+  </p>
+
+  <div class="clear"></div>
+  <p>
+    <div class="fb-like" data-send="true" data-width="450" data-show-faces="true" data-font="arial"></div>
+  </p>	
+
+  <div class="clear"></div>
+  <p>
+    <h2>Suppliers</h2>
+    <ul>
+      [% FOREACH p = movie.0.products %]
+      <li> <a href="[% p.url %]" rel="nofollow">[% p.name %]</a> [% p.supplier.title %]: &pound;[% p.price %]
+	[% END # products %]
+    </ul>
+  </p>
+ 
+
+  <p>
+    <h2>Reviews</h2>
+    [% FOREACH r = reviews %]
+    [% IF r.wanttosee == 0 %]
+
+[%# now test for one of our reviews... %]
+[% IF (c.user.user_id == r.user_id) && (movie.0.id == r.movie_id) %]
+[% s = r %]
+[% END %]
+
+      <div class="post post-archive">
+	<a href="#" title="Review">
+	  <img width="48" height="48" src="[% c.config.staticx %]/static/images/demo_archive.png" alt="Review" />
+	</a>
+	<div class="rating"><div class="stars_[% r.rating %]"></div></div>
+	<h2 class="index-entry-title">
+	  <a href="#" title="Review">[% r.review %]</a>
+	</h2>
+	<div class="archive-meta entry-meta-index">
+	  <span>
+	    <!-- Posted in <a href="#" title="View all posts in Reviews" rel="category tag">Reviews</a> by --><a href="/site/profile/[% r.user_id %]" title="">[% r.user.firstname %] [% r.user.lastname %]</a>
+	  </span>
+	  <!--	  <div class="additional-meta_comments"><a href="#" title="Comment on Post Title Here">2 Comments</a> -->
+	  </div>
+	</div><!-- end .entry-meta -->
+      </div><!-- end .post -->
+      [% END # foreach wanttosee %]      
+      [% END # foreach reviews %]
+
+
+
+  [% IF c.user.token %]
+  <p>
+    <h3>Review</h3>
+    <form method="get" action="/site/review">
+         Rating: <select name="rating">
+	<option value="1" [% IF s.rating == 1 %]selected[% END %]>1</option>
+	<option value="2" [% IF s.rating == 2 %]selected[% END %]>2</option>
+	<option value="3" [% IF s.rating == 3 %]selected[% END %]>3</option>
+	<option value="4" [% IF s.rating == 4 %]selected[% END %]>4</option>
+	<option value="5" [% IF s.rating == 5 %]selected[% END %]>5</option>
+      </select> 
+      <textarea name="review" alt="Review" value="" rows="2" cols="50">[% s.review %]</textarea><br />
+   
+      <input type="hidden" name="movie_id" value="[% movie.0.id %]" />
+      <input type="submit" name="review"   value="Submit" />
+    </form>
+  </p>
+  [% END %]
+
+</div> <!-- page-content -->

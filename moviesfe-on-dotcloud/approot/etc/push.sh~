@@ -1,0 +1,13 @@
+#!/bin/sh
+
+set +e 
+
+
+cp config.yaml.stage config.yaml
+(
+   cd ..
+   dotcloud push cineastic
+)
+cp config.yaml.local config.yaml
+
+

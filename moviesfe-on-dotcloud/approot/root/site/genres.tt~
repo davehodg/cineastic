@@ -1,0 +1,63 @@
+<h3>Top Movies for [% genres.0.movie_genres.0.genre.title %]</h3>
+
+[% USE Dumper(Pad="<br>") %]
+[%# Dumper.dump(genres.0.movie_genres.0.genre.title) %]
+
+<ul>
+[% FOREACH g =  genres %]
+[%# Dumper.dump(g) %]
+
+<li>
+<!-- <img align="left" width="50" src="[% g.rt_img_thu %]"> -->
+<a href="/site/movie/[% g.id%]/[% g.title | replace('\s+', '-')| replace(',+', '-') | replace('\.', '-') |url %]">[% g.title %] ([% g.year %])</a> ([% g.rt_critic %])
+[% END %]
+</ul>
+
+<p>
+[
+[% IF page > 0 %]
+<a href="[% c.req.uri.path %]?page=[% page - 1 %]">Prev</a> |
+[% END %]
+<a href="[% c.req.uri.path %]?page=[% page + 1 %]">Next</a>
+]
+</p>
+
+
+<h3>Decades</h3>
+<p>
+[ 
+<a href="[% c.req.uri.path %]?decade=1950">1950</a> |
+<a href="[% c.req.uri.path %]?decade=1960">1960 </a>|
+<a href="[% c.req.uri.path %]?decade=1970">1970 </a>|
+<a href="[% c.req.uri.path %]?decade=1980">1980 </a>|
+<a href="[% c.req.uri.path %]?decade=1990">1990 </a>|
+<a href="[% c.req.uri.path %]?decade=2000">2000 </a>|
+<a href="[% c.req.uri.path %]?decade=2010">2010</a> 
+]
+</p>
+<h3>Genres</h3>
+<p>
+[
+<a href="/site/genres/1">Drama</a> |
+<a href="/site/genres/2">Action & Adventure</a> |
+<a href="/site/genres/3">Classics</a> |
+<a href="/site/genres/4">Science Fiction & Fantasy</a> |
+<a href="/site/genres/5">Art House & International</a> |
+<a href="/site/genres/6">Mystery & Suspense</a> |
+<a href="/site/genres/7">Comedy</a> |
+<a href="/site/genres/8">Romance</a> |
+<a href="/site/genres/9">Kids & Family</a> |
+<a href="/site/genres/10">Horror</a> |
+<a href="/site/genres/11">Animation</a> |
+<a href="/site/genres/12">Special Interest</a> |
+<a href="/site/genres/13">Documentary</a> |
+<a href="/site/genres/14">Sports & Fitness</a> |
+<a href="/site/genres/15">Western</a> |
+<a href="/site/genres/16">Musical & Performing Arts</a> |
+<a href="/site/genres/17">Television</a> |
+<a href="/site/genres/18">Cult Movies</a> |
+<a href="/site/genres/19">Faith & Spirituality</a> |
+<a href="/site/genres/20">Gay & Lesbian</a> |
+<a href="/site/genres/21">Adult</a> 
+]
+</p>
