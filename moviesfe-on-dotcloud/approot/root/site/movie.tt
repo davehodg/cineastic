@@ -21,10 +21,13 @@
     ]
   </p>
   [% END # actors %]
-
+[% image =  movie.0.rt_img_det %]
+[% IF image == "http://images.rottentomatoescdn.com/images/redesign/poster_default.gif" %]
+[% image =  movie.0.products.0.image_url %]
+[% END %]
 
   <p>
-    <img class="alignleft" src="[% movie.0.rt_img_det || movie.0.products.0.image_url %]" align="left" alt="[% movie.0.title %]" />
+    <img class="alignleft" src="[% image %]" align="left" alt="[% movie.0.title %]" />
 
     <a href="/site/review/?wanttosee=1&movie_id=[% movie.0.id %]">[W]</a>
     [% movie.0.rt_synopsis || movie.0.products.0.description %]

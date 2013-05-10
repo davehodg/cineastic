@@ -735,24 +735,24 @@ sub latest_releases {
   my @releases = $self->{database}->{schema}->resultset('Product')->search
     (
      {
-      'me.release_date' => { '<=', \ 'NOW()' },
-      'movie.year' => { '>=', 2011, },
+      'me.release_date'  => { '<=', \ 'NOW()' },
+      'movie.year'       => { '>=', 2011, },
       'movie.rt_img_det' => { '!=', undef },
       #'movie.rt_critic' => { '!=', undef },
      },
      {
       columns => [ 
-          { title => 'movie.title'}, 
-          { id => 'movie.id'}, 
-          'release_date', 
-          { year => 'movie.year'},
-          { image => 'movie.rt_img_det'},
+          { title          => 'movie.title'}, 
+          { id             => 'movie.id'}, 
+          { release_date   => 'me.release_date'}, 
+          { year           => 'movie.year'},
+          { image          => 'movie.rt_img_det'},
 	  #{ supplier_image => 'me.image_url' },
           # { rating => 'movie.rt_critic' },
       ],
       distinct => 1,
       result_class => 'DBIx::Class::ResultClass::HashRefInflator',
-	  #prefetch     => 'movie',
+      #prefetch     => 'movie',
       join      => 'movie',
 	  #order_by     => [  { -desc => 'movie.rt_critic' }, ],
 	  order_by     => [  { -desc => 'me.release_date' }, { -desc => 'movie.year' },  { -desc => 'movie.rt_critic' },],

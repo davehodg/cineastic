@@ -230,7 +230,8 @@ sub genres :Chained('base') :PathPart('genres') {
         );
     $c->stash(genres => $rest->genres($c, $genre_id, $c->stash->{page}, $c->stash->{decade})) ;
 
-    #$c->log->debug(Dumper( $#{  $c->stash->{genres} })) ;
+    $c->log->debug(Dumper( $#{  $c->stash->{genres} })) ;
+
     if ($#{ $c->stash->{genres} } == -1 ) {
       $c->response->redirect($c->uri_for('/site/genres/'. $genre_id ) . '?page=' . ($c->request->params->{'page'} -1)) ;
     }

@@ -24,6 +24,7 @@ requires       'CGI::Application::PSGI';
 requires       'Cache::File';
 requires       'Time::HiRes';
 requires       'Parallel::ForkManager';
+requires       'Memoize';
 
 # Specific dependencies
 requires       'List::Util'  => '1.25';
@@ -72,6 +73,7 @@ requires       'Digest::SHA1';
 # needs ssl-dev
 requires       'Crypt::SSLeay';
 requires       'WWW::Facebook::API';
+requires       'WWW::Lovefilm::API';
 
 
 # needs expat

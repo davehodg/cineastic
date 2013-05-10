@@ -8,7 +8,9 @@
 	<div class="wrapper">
 <ul>
 [% FOREACH r  IN releases %]
-<li><a href="/site/movie/[% r.id %]"><img src="[% r.image || r.supplier_image %]" width="100"></a></li>
+[% IF r.image != "http://images.rottentomatoescdn.com/images/redesign/poster_default.gif" %]
+<li><a href="/site/movie/[% r.id %]"><img src="[% r.image %]" width="100"></a></li>
+[% END %]
 [% END %]
 </ul>
 	</div>

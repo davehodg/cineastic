@@ -14,7 +14,7 @@ sub new {
     my $obj = bless {}, $class;
 
 
-    my $cfg = Config::Any->load_files({files => ['config.yml'] });
+    my $cfg = Config::Any->load_files({files => ['config.yml'], use_ext=>1 });
 
     $obj->{cfg} = $cfg->[0]{'config.yml'}; 
     #warn "ook!" . Dumper( $obj->{cfg} ) ;
