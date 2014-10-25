@@ -1,5 +1,0 @@
-
-<p>Review!</p>
-
-[% USE Dumper(Pad="<br>") %]
-[% Dumper.dump(reviews) %]
