@@ -38,6 +38,8 @@ sub collateral : Path('') {
   $self->_all_genres($c);
   $c->stash(title => "Cineastic") ;
   $c->stash(star  => encode_utf8("\x{2605}")) ;
+  push( @{ $c->view('Cineastic')->include_path }, qw/root/ );
+
 }
 
 
