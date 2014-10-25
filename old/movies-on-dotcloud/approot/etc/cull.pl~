@@ -1,9 +1,0 @@
-#!/bin/perl
-
-use Output::Database ;
-
-
-my $o = Output::Database->new;
-my $dbh = $o->{dbh} ;
-
-warn $dbh ;

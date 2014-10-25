@@ -1,7 +1,0 @@
-www:
-  type: perl
-  approot: approot
-
-data:
-  type: mysql
-
