@@ -1,0 +1,22 @@
+
+
+<div id="main_content_alt">
+  <div class="container">
+    <div class="posts-wrap">
+      <div id="page">
+	<h2 class="page-title">Search Results</h2>
+	<div class="entry-content" id="page-content">
+
+	  <p>
+
+	    <ul>
+	      [% FOREACH r = searchresults %]
+	      <li> <a href="/site/movie/[% r.id %]/[% r.title | replace('\s+','-') | url %]">[% r.title %] ([% r.year %])</a>
+		[% END %]
+	    </ul>
+	  </p>
+	</div>
+      </div>
+    </div>
+  </div>
+</div>

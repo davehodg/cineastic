@@ -1,0 +1,7 @@
+
+port: 3306
+username: cineastic
+password: xcineasticx
+host: localhost
+database: cineastic
+

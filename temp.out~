@@ -1,0 +1,314 @@
+Watching ./lib cineastic.psgi for file updates.
+[debug] Debug messages enabled
+[debug] Statistics enabled
+[debug] Loaded Config "/mnt/hgfs/workspace/cineastic/cineastic.conf"
+Term::Size::Any is not installed, can't autodetect terminal column width
+Trouble trying to detect your terminal size, looking at $ENV{COLUMNS}
+Cannot determine desired terminal width, using default of 80 columns
+[debug] Loaded plugins:
+.----------------------------------------------------------------------------.
+| Catalyst::Plugin::ConfigLoader  0.34                                       |
+'----------------------------------------------------------------------------'
+
+[debug] Loaded PSGI Middleware:
+.----------------------------------------------------------------------------.
+| Catalyst::Middleware::Stash                                                |
+| Plack::Middleware::HTTPExceptions                                          |
+| Plack::Middleware::RemoveRedundantBody  0.04                               |
+| Plack::Middleware::FixMissingBodyInRedirect  0.10                          |
+| Plack::Middleware::ContentLength                                           |
+| Plack::Middleware::MethodOverride  0.10                                    |
+| Plack::Middleware::Head                                                    |
+'----------------------------------------------------------------------------'
+
+[debug] Loaded Request Data Handlers:
+.----------------------------------------------------------------------------.
+| application/x-www-form-urlencoded                                          |
+| application/json                                                           |
+'----------------------------------------------------------------------------'
+
+[debug] Loaded dispatcher "Catalyst::Dispatcher"
+[debug] Loaded engine "Catalyst::Engine"
+[debug] Found home "/mnt/hgfs/workspace/cineastic"
+[debug] Loaded components:
+.-----------------------------------------------------------------+----------.
+| Class                                                           | Type     |
++-----------------------------------------------------------------+----------+
+| Cineastic::Controller::Root                                     | instance |
+| Cineastic::Model::Cineastic                                     | instance |
+| Cineastic::Model::Cineastic::Actor                              | class    |
+| Cineastic::Model::Cineastic::Friend                             | class    |
+| Cineastic::Model::Cineastic::Genre                              | class    |
+| Cineastic::Model::Cineastic::Movie                              | class    |
+| Cineastic::Model::Cineastic::MovieActor                         | class    |
+| Cineastic::Model::Cineastic::MovieGenre                         | class    |
+| Cineastic::Model::Cineastic::Product                            | class    |
+| Cineastic::Model::Cineastic::Review                             | class    |
+| Cineastic::Model::Cineastic::Supplier                           | class    |
+| Cineastic::Model::Cineastic::User                               | class    |
+| Cineastic::View::Cineastic                                      | instance |
+'-----------------------------------------------------------------+----------'
+
+[debug] Loaded Private actions:
+.----------------------+--------------------------------------+--------------.
+| Private              | Class                                | Method       |
++----------------------+--------------------------------------+--------------+
+| /movie               | Cineastic::Controller::Root          | movie        |
+| /collateral          | Cineastic::Controller::Root          | collateral   |
+| /end                 | Cineastic::Controller::Root          | end          |
+| /index               | Cineastic::Controller::Root          | index        |
+| /default             | Cineastic::Controller::Root          | default      |
+'----------------------+--------------------------------------+--------------'
+
+[debug] Loaded Path actions:
+.-------------------------------------+--------------------------------------.
+| Path                                | Private                              |
++-------------------------------------+--------------------------------------+
+| /                                   | /index                               |
+| /...                                | /default                             |
+| /...                                | /collateral                          |
+| /movie/*                            | /movie                               |
+'-------------------------------------+--------------------------------------'
+
+[info] Cineastic powered by Catalyst 5.90071
+HTTP::Server::PSGI: Accepting connections at http://0:5000/
+SELECT me.id, me.title, me.year, me.rating, me.rt_id, me.rt_imdb, me.rt_img_det, me.rt_img_thu, me.rt_critic, me.rt_synopsis, me.updated, products.product_id, products.movie_id, products.title, products.sku, products.ean, products.image_url, products.price, products.shipping, products.salesrank, products.name, products.description, products.url_small, products.supplier_id, products.url, products.release_date, products.updated, supplier.id, supplier.title, supplier.live, movie_genres.id, movie_genres.genre_id, movie_genres.movie_id, genre.id, genre.title, movie_actors.id, movie_actors.actor_id, movie_actors.movie_id, actor.id, actor.title FROM (SELECT me.id, me.title, me.year, me.rating, me.rt_id, me.rt_imdb, me.rt_img_det, me.rt_img_thu, me.rt_critic, me.rt_synopsis, me.updated FROM movie me WHERE ( me.id = ? ) GROUP BY me.id, me.title, me.year, me.rating, me.rt_id, me.rt_imdb, me.rt_img_det, me.rt_img_thu, me.rt_critic, me.rt_synopsis, me.updated) me LEFT JOIN product products ON products.movie_id = me.id LEFT JOIN supplier supplier ON supplier.id = products.supplier_id LEFT JOIN movie_genre movie_genres ON movie_genres.movie_id = me.id LEFT JOIN genre genre ON genre.id = movie_genres.genre_id LEFT JOIN movie_actor movie_actors ON movie_actors.movie_id = me.id LEFT JOIN actor actor ON actor.id = movie_actors.actor_id WHERE ( me.id = ? ) ORDER BY products.price ASC: '346831', '346831'
+127.0.0.1 - - [24/Oct/2014:11:42:54 +0100] "GET /movie/346831 HTTP/1.1" 200 5632 "-" "curl/7.35.0"
+[info] *** Request 1 (0.200/s) [34979] [Fri Oct 24 11:42:54 2014] ***
+[debug] Path is "movie"
+[debug] Arguments are "346831"
+[debug] "GET" request for "movie/346831" from "127.0.0.1"
+[debug] *** movie 346831 
+[debug] $VAR1 = [
+          {
+            'year' => '2013',
+            'updated' => '2014-05-05 12:52:23',
+            'rt_synopsis' => 'Marvel\'s "Thor: The Dark World" continues the big-screen adventures of Thor, the Mighty Avenger, as he battles to save Earth and all the Nine Realms from a shadowy enemy that predates the universe itself. In the aftermath of Marvel\'s "Thor" and "Marvel\'s The Avengers," Thor fights to restore order across the cosmos...but an ancient race led by the vengeful Malekith returns to plunge the universe back into darkness. Faced with an enemy that even Odin and Asgard cannot withstand, Thor must embark on his most perilous and personal journey yet, one that will reunite him with Jane Foster and force him to sacrifice everything to save us all. (c) Disney',
+            'products' => [
+                            {
+                              'supplier' => {
+                                              'id' => '2',
+                                              'live' => '1',
+                                              'title' => 'The Hut'
+                                            },
+                              'supplier_id' => '2',
+                              'ean' => '8717418420277',
+                              'sku' => undef,
+                              'product_id' => '1069846',
+                              'movie_id' => '346831',
+                              'release_date' => '2013-02-24 00:00:00',
+                              'price' => '13.99',
+                              'title' => 'Thor 2: The Dark World',
+                              'url' => 'http://www.thehut.com/dvd/thor-2-the-dark-world/10867563.html',
+                              'url_small' => undef,
+                              'description' => undef,
+                              'shipping' => undef,
+                              'salesrank' => undef,
+                              'updated' => '2013-11-29 01:05:54',
+                              'image_url' => 'http://thehut.pantherssl.com/productimg/0/130/130/63/10867563-1383054443-257875.jpg',
+                              'name' => 'Thor 2: The Dark World (DVD)'
+                            },
+                            {
+                              'movie_id' => '346831',
+                              'product_id' => '1070531',
+                              'sku' => undef,
+                              'ean' => '8717418420277',
+                              'supplier_id' => '3',
+                              'supplier' => {
+                                              'title' => 'Zavvi',
+                                              'live' => '1',
+                                              'id' => '3'
+                                            },
+                              'name' => 'Thor 2: The Dark World (DVD)',
+                              'image_url' => 'http://thehut.pantherssl.com/productimg/0/130/130/63/10867563-1383054443-257875.jpg',
+                              'salesrank' => undef,
+                              'updated' => '2013-11-29 01:10:33',
+                              'shipping' => undef,
+                              'description' => undef,
+                              'url_small' => undef,
+                              'url' => 'http://www.zavvi.com/dvd/thor-2-the-dark-world/10867563.html',
+                              'title' => 'Thor 2: The Dark World',
+                              'price' => '13.99',
+                              'release_date' => '2013-02-24 00:00:00'
+                            },
+                            {
+                              'sku' => undef,
+                              'product_id' => '1069847',
+                              'movie_id' => '346831',
+                              'ean' => '8717418420574',
+                              'supplier' => {
+                                              'id' => '2',
+                                              'live' => '1',
+                                              'title' => 'The Hut'
+                                            },
+                              'supplier_id' => '2',
+                              'shipping' => undef,
+                              'salesrank' => undef,
+                              'updated' => '2013-11-29 01:05:54',
+                              'image_url' => 'http://thehut.pantherssl.com/productimg/0/130/130/64/10867564-1383054443-257701.jpg',
+                              'name' => 'Thor 2: The Dark World (Blu-ray)',
+                              'url' => 'http://www.thehut.com/blu-ray/thor-2-the-dark-world/10867564.html',
+                              'url_small' => undef,
+                              'description' => undef,
+                              'price' => '16.99',
+                              'title' => 'Thor 2: The Dark World',
+                              'release_date' => '2014-02-24 00:00:00'
+                            },
+                            {
+                              'supplier_id' => '3',
+                              'supplier' => {
+                                              'id' => '3',
+                                              'live' => '1',
+                                              'title' => 'Zavvi'
+                                            },
+                              'movie_id' => '346831',
+                              'product_id' => '1070532',
+                              'sku' => undef,
+                              'ean' => '8717418420574',
+                              'title' => 'Thor 2: The Dark World',
+                              'price' => '16.99',
+                              'release_date' => '2014-02-24 00:00:00',
+                              'image_url' => 'http://thehut.pantherssl.com/productimg/0/130/130/64/10867564-1383054443-257701.jpg',
+                              'name' => 'Thor 2: The Dark World (Blu-ray)',
+                              'updated' => '2013-11-29 01:10:33',
+                              'salesrank' => undef,
+                              'shipping' => undef,
+                              'description' => undef,
+                              'url_small' => undef,
+                              'url' => 'http://www.zavvi.com/blu-ray/thor-2-the-dark-world/10867564.html'
+                            },
+                            {
+                              'release_date' => '2014-01-07 00:00:00',
+                              'title' => 'Thor 2: The Dark World 3D',
+                              'price' => '19.99',
+                              'description' => undef,
+                              'url_small' => undef,
+                              'url' => 'http://www.thehut.com/blu-ray/thor-2-the-dark-world-3d/10867565.html',
+                              'name' => 'Thor 2: The Dark World 3D (Blu-ray)',
+                              'image_url' => 'http://thehut.pantherssl.com/productimg/0/130/130/65/10867565-1383054443-257800.jpg',
+                              'updated' => '2013-11-29 01:05:54',
+                              'salesrank' => undef,
+                              'shipping' => undef,
+                              'supplier_id' => '2',
+                              'supplier' => {
+                                              'id' => '2',
+                                              'live' => '1',
+                                              'title' => 'The Hut'
+                                            },
+                              'ean' => '8717418420598',
+                              'movie_id' => '346831',
+                              'product_id' => '1069848',
+                              'sku' => undef
+                            },
+                            {
+                              'price' => '19.99',
+                              'title' => 'Thor 2: The Dark World 3D',
+                              'release_date' => '2014-01-07 00:00:00',
+                              'image_url' => 'http://thehut.pantherssl.com/productimg/0/130/130/65/10867565-1383054443-257800.jpg',
+                              'name' => 'Thor 2: The Dark World 3D (Blu-ray)',
+                              'shipping' => undef,
+                              'salesrank' => undef,
+                              'updated' => '2013-11-29 01:10:33',
+                              'description' => undef,
+                              'url' => 'http://www.zavvi.com/blu-ray/thor-2-the-dark-world-3d/10867565.html',
+                              'url_small' => undef,
+                              'supplier' => {
+                                              'live' => '1',
+                                              'id' => '3',
+                                              'title' => 'Zavvi'
+                                            },
+                              'supplier_id' => '3',
+                              'product_id' => '1070533',
+                              'movie_id' => '346831',
+                              'sku' => undef,
+                              'ean' => '8717418420598'
+                            }
+                          ],
+            'movie_actors' => [
+                                {
+                                  'id' => '141593',
+                                  'movie_id' => '346831',
+                                  'actor' => {
+                                               'id' => '3510',
+                                               'title' => 'Chris Hemsworth'
+                                             },
+                                  'actor_id' => '3510'
+                                },
+                                {
+                                  'actor_id' => '542',
+                                  'actor' => {
+                                               'title' => 'Natalie Portman',
+                                               'id' => '542'
+                                             },
+                                  'movie_id' => '346831',
+                                  'id' => '141594'
+                                },
+                                {
+                                  'id' => '141595',
+                                  'movie_id' => '346831',
+                                  'actor_id' => '7850',
+                                  'actor' => {
+                                               'title' => 'Tom Hiddleston',
+                                               'id' => '7850'
+                                             }
+                                },
+                                {
+                                  'id' => '141596',
+                                  'actor' => {
+                                               'title' => 'Stellan Skarsgard',
+                                               'id' => '780'
+                                             },
+                                  'actor_id' => '780',
+                                  'movie_id' => '346831'
+                                },
+                                {
+                                  'id' => '141597',
+                                  'actor_id' => '2473',
+                                  'actor' => {
+                                               'title' => 'Idris Elba',
+                                               'id' => '2473'
+                                             },
+                                  'movie_id' => '346831'
+                                }
+                              ],
+            'rt_img_det' => 'http://content8.flixster.com/movie/11/17/26/11172694_det.jpg',
+            'rt_img_thu' => 'http://content8.flixster.com/movie/11/17/26/11172694_mob.jpg',
+            'title' => 'Thor: The Dark World',
+            'rt_id' => '771247277',
+            'rt_critic' => '65',
+            'id' => '346831',
+            'rt_imdb' => '1981115',
+            'movie_genres' => [
+                                {
+                                  'movie_id' => '346831',
+                                  'genre' => {
+                                               'title' => 'Action & Adventure',
+                                               'id' => '3'
+                                             },
+                                  'genre_id' => '3',
+                                  'id' => '68784'
+                                },
+                                {
+                                  'id' => '68785',
+                                  'genre' => {
+                                               'title' => 'Science Fiction & Fantasy',
+                                               'id' => '5'
+                                             },
+                                  'movie_id' => '346831',
+                                  'genre_id' => '5'
+                                }
+                              ],
+            'rating' => '7.3'
+          }
+        ];
+[debug] Rendering template "movie.tt"
+[debug] Response Code: 200; Content-Type: text/html; charset=utf-8; Content-Length: unknown
+[info] Request took 0.142525s (7.016/s)
+.------------------------------------------------------------+-----------.
+| Action                                                     | Time      |
++------------------------------------------------------------+-----------+
+| /movie                                                     | 0.096891s |
+| /end                                                       | 0.039287s |
+|  -> Cineastic::View::Cineastic->process                    | 0.038618s |
+'------------------------------------------------------------+-----------'
+

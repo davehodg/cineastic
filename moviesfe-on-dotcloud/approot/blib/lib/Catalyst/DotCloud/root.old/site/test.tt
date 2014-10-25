@@ -1,4 +1,0 @@
-
-[% IF username %]
-<p>Hello, [% username %]!</p>
-[% END %]

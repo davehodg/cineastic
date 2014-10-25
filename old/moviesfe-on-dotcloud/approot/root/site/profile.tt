@@ -1,0 +1,29 @@
+<h2>Profile for: [% c.user.firstname %] [% c.user.lastname %]</h2>
+<div class="entry-content" id="page-content">
+
+
+
+  <h2>Want To See</h2>
+  <ul>
+    [% FOREACH r = reviews %]
+    [% IF r.wanttosee == 1 %]
+    <li><a href="/site/movie/[% r.movie.id %]/[% r.movie.title  | replace('\s+', '-') | uri %]">[% r.movie.title %] ([% r.movie.year %])</a>
+      <br />
+      [% END %]
+      [% END %]
+  </ul>
+
+  <h2>Reviews</h2>
+
+  <ul>
+    [% FOREACH r = reviews %]
+    [% IF r.wanttosee == 0 %]
+    <li><a href="/site/movie/[% r.movie.id %]/[% r.movie.title | replace('\s+', '-')| replace(',+', '-') | replace('\.', '-') |url %]
+		 ">[% r.movie.title %]</a> : 
+
+      [% r.review %] 
+      [% i = 1 ; WHILE i <= r.rating ; star ; i = i + 1 ; END %]&nbsp;
+			    [% END %]
+			    [% END %]
+			    </ul>
+</div>

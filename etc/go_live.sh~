@@ -1,0 +1,10 @@
+#!/bin/sh
+
+cp config.yml.live config.yml
+
+etc/load_imdb.pl
+etc/load_amazon.pl
+etc/load_rotten.pl
+etc/load_thehut.pl
+
+cp config.yml.local config.yml

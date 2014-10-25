@@ -1,0 +1,13 @@
+<h1 class="page-title">[% movies.0.movie_actors.actor.title %]</h1>
+<div class="entry-content" id="page-content">
+  <p>
+    <ul>
+      [% FOREACH m = movies %]
+      <li>
+	<!-- <img align="left" width="50" src="[% g.rt_img_thu %]"> -->
+	<a href="/movie/[% m.id%]">[% m.title %] ([% m.year %])</a> ([% m.rt_critic %]%)
+      </li>
+      [% END %]
+    </ul>
+  </p>
+</div>

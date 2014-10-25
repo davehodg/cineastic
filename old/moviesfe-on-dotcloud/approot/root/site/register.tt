@@ -1,0 +1,19 @@
+
+
+
+<div id="main_content_alt">
+	<div class="container">
+		<div class="posts-wrap">
+			<div id="page">
+				<h2 class="page-title">About this site</h2>
+				<div class="entry-content" id="page-content">
+
+
+<form action="/site/registersubmit" method="get">
+  First name: <input type="text" name="firstname" /><br />
+  Last name: <input type="text" name="lastname" /><br />
+  Email: <input type="text" name="email" /><br />
+  Password: <input type="password" name="password" /><br />
+  <input type="submit" value="Submit" />
+</form>
+</div></div></div></div></div>

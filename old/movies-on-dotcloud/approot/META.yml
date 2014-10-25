@@ -1,0 +1,67 @@
+---
+build_requires:
+  ExtUtils::MakeMaker: 6.36
+  Test::More: 0.98
+configure_requires:
+  ExtUtils::MakeMaker: 6.36
+distribution_type: module
+dynamic_config: 1
+generated_by: 'Module::Install version 1.06'
+license: artistic
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Movies
+no_index:
+  directory:
+    - inc
+    - t
+requires:
+  CGI: 3.60
+  CGI::Application: 4.50
+  CGI::Application::PSGI: 0
+  CGI::Application::Plugin::ConfigAuto: 0
+  CGI::PSGI: 0
+  Cache::File: 0
+  Crypt::SSLeay: 0
+  DBD::mysql: 4.021
+  DBIx::Class: 0.08199
+  DBIx::Class::Schema::Loader: 0
+  Dancer: 1.3099
+  Digest::SHA1: 0
+  Encode: 2.44
+  HTML::Entities::Numbered: 0
+  HTML::Template: 0
+  HTML::TreeBuilder: 0
+  IO::CaptureOutput: 0
+  IO::Scalar: 0
+  JSON: 0
+  List::Util: 1.25
+  Module::Build: 0.4003
+  Module::Metadata: 1.000011
+  Parallel::ForkManager: 0
+  Perl::OSType: 0
+  PerlIO::gzip: 0
+  Plack: 1.0002
+  SQL::Translator: 0.11012
+  Tie::IxHash: 0
+  Time::HiRes: 0
+  URI: 0
+  URI::Escape: 0
+  Unicode::Map8: 0
+  Unicode::String: 0
+  WWW::Facebook::API: 0
+  WWW::Sitemap::XML: 0
+  XML::Filter::BufferText: 0
+  XML::Handler::YAWriter: 0
+  XML::Parser: 0
+  XML::SAX::Writer: 0
+  XML::Simple: 0
+  XML::Twig: 3.40
+  XML::XPath: 1.13
+  XML::XPathEngine: 0
+  YAML::XS: 0
+  local::lib: 0
+resources:
+  license: http://opensource.org/licenses/artistic-license.php
+version: 0.1

@@ -1,0 +1,39 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+
+use lib qw/lib/;
+
+use WWW::Sitemap::XML;
+use Output::Database ;
+
+my $db = Output::Database->new;
+my $schema = $db->connect_schema;
+
+
+
+my @releases= $schema->resultset('Product')->search
+    ({
+     },
+     {
+	 columns => [
+	     {
+		 id => 'movie.id',
+	     }
+	 ],
+	 join      => 'movie',
+	 order_by     => [  { -desc => 'me.release_date' }, ],
+	 rows      => 50000,
+	 result_class => 'DBIx::Class::ResultClass::HashRefInflator',
+     }) ;
+
+use Data::Dumper;
+#warn Dumper(\@releases) ;
+
+my $map = WWW::Sitemap::XML->new();
+
+foreach my $r (@releases) {
+    $map->add( 'http://www.cineastic.co.uk/movie/' . $r->{id} );
+}
+
+$map->write( '../approot-fe/root/sitemap.xml.gz' );

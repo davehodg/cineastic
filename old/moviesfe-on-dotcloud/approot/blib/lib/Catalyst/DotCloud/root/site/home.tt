@@ -1,0 +1,63 @@
+<!-- content -->
+
+<div id="main_content_alt">
+	<div class="container">
+		<div class="posts-wrap">
+			<div class="post post-index">
+				<div class="entry-content entry-content-index">
+					<h2 class="entry-title index-entry-title"><a href="single.php" title="Single Post">Post Title Here</a>
+					</h2>
+					<div class="additional-meta">
+						<span>Posted in <a href="archive.php" title="View all posts in Giveaways" rel="category tag">Giveaways</a> by <a href="archive.php" title="Posts by Jake Caputo" rel="author">Jake Caputo</a> - Jun 02, 2011
+						</span>
+						<div class="additional-meta_comments">
+							<a href="#" class="comments-link" title="Comment on Post Title Here">5 Comments</a>
+						</div>
+					</div>
+					<div class="poster">
+						<a href="single.php" title="Post Title Here" class="poster_link">
+							<img width="198" height="294" src="images/demo_poster.png" class="alignleft post-image-border" alt="Post Title Here" />
+						</a>
+					</div>
+					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim. Suspendisse id velit vitae ligula volutpat condimentum. Aliquam erat volutpat. Sed quis velit.
+					</p>
+					<p>Nulla facilisi. Nulla libero. Vivamus pharetra posuere sapien. Nam consectetuer. Sed aliquam, nunc eget euismod ullamcorper, lectus nunc ullamcorper orci, fermentum bibendum enim nibh eget ipsum. Donec porttitor ligula eu dolor. Maecenas vitae nulla consequat libero cursus venenatis. Nam magna enim, accumsan eu, blandit sed, blandit a, eros.
+					</p>
+					<p>Quisque facilisis erat a dui. Nam malesuada ornare dolor. Cras gravida, diam sit &#8230;</p><a href="single.php" title="Post Title Here" class="more-link left">Read More</a>
+					<div class="clear"></div>
+				</div><!-- end .entry-content -->
+			</div><!-- end .post -->
+
+
+
+			<div class="navigation">
+				<div class="next_prev left"><a href="#" title="Previous">&laquo; Previous</a></div>
+				<div class="next_prev right"><a href="#" title="Next">Next &raquo;</a></div>
+				<div class="clear"></div>
+			</div>
+		</div><!-- end .posts-wrap -->
+<!-- Begin Sidebar -->
+<!-- <?php include('includes/sidebar.php'); ?> -->
+<!-- End Sidebar -->
+
+		<div class="clear"></div>
+	</div><!-- end div.container -->
+</div><!-- end div#main_content -->
+
+
+
+
+
+<h1>Home</h1>
+
+<h3>Latest Reviews</h3>
+
+<p>
+<ul>
+[% FOREACH r = reviews %] 
+<li><a href="/site/movie/[% r.movie.id %]/[% r.movie.title | replace('\s+', '-')| url %]">[% r.movie.title %]</a> <i>([% r.user.firstname %] [% r.user.lastname %])</i>
+[% i = 1 ; WHILE i <= r.rating ; star ; i = i + 1 ; END %]&nbsp;
+[% r.review %]</li>
+[% END %]
+</ul>
+</p>

@@ -1,0 +1,15 @@
+
+use strict;
+use warnings;
+
+use lib qw /lib/ ;
+use Input::Rotten;
+use Output::Database;
+use Data::Dumper;
+
+my $a = Input::Rotten->new ;
+my $o = Output::Database->new;
+
+$a->read_input;
+
+

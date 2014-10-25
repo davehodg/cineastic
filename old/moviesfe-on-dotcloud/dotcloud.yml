@@ -1,0 +1,10 @@
+---
+www:
+    approot: approot
+    type: perl
+    requirements:
+        - 'Module::Install::Catalyst'
+        - 'Plack::Builder'
+        - 'Plack::Middleware::BufferedStreaming'
+
+   

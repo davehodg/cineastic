@@ -1,0 +1,22 @@
+<div id="header_banner" class="featured_banner_dark">
+  <div class="container">
+
+    <div id="liquid1" class="liquid">
+      <span class="previous"></span>
+      <div class="wrapper">
+	<ul>
+	  [% FOREACH m IN movies %]
+	  [% IF m.rt_img_det != "http://images.rottentomatoescdn.com/images/redesign/poster_default.gif" %]
+	  <li><a href="/movie/[% m.id %]"><img src="[% m.rt_img_det %]" width="100"></a></li>
+	  [% END %]
+	  [% END %]
+	</ul>
+      </div>
+      <span class="next"></span>
+    </div>
+
+
+    <div class="clear"></div>
+  </div>
+</div>
+</div><!-- end #header -->

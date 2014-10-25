@@ -1,0 +1,29 @@
+<!-- Begin Sidebar -->
+<div id="sidebar">
+  <div class="widget">
+    <h3 class="widgettitle">Our Take On Things</h3>
+    <div class="textwidget">
+      With Cineastic, you can track the best and the
+      worst of movies you see and help your friends
+      make an informed choice!
+    </div>
+  </div>
+  <div class="clear"></div>
+  <div class="widget_divide"></div>
+
+  <div class="widget">
+    <h3 class="widgettitle">Suggested Movies</h3>
+    <div class="textwidget">
+      <ul>
+	[% FOREACH s = suggest %]
+        <li><a href="/movie/[% s.id %]">[% s.title %] ([% s.year %])</a></li>
+	[% END %]
+      </ul>
+
+    </div>
+  </div>
+  <div class="clear"></div>
+
+
+</div><!-- End Sidebar -->
+

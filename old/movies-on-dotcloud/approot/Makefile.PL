@@ -1,0 +1,92 @@
+use inc::Module::Install;
+
+
+
+name           'Movies';
+version        '0.1';
+license        'artistic';
+
+
+#all_from       'lib/Your/Module.pm';
+
+
+
+requires       'Module::Build' => '0.4003';
+requires       'Module::Metadata' => '1.000011';
+requires       'Perl::OSType';
+requires       'HTML::Template';
+requires       'PerlIO::gzip';
+requires       'local::lib';
+
+requires       'CGI' => '3.60';
+requires       'CGI::Application::PSGI';
+
+requires       'Cache::File';
+requires       'Time::HiRes';
+requires       'Parallel::ForkManager';
+requires       'Memoize';
+
+# Specific dependencies
+requires       'List::Util'  => '1.25';
+
+
+requires       'HTML::TreeBuilder';
+requires       'HTML::Entities::Numbered';
+
+# requires tidyp, can't find a deb for it
+#requires       'HTML::Tidy';
+requires        'Unicode::Map8';
+requires        'Unicode::String';
+requires       'Tie::IxHash';
+requires       'XML::Simple';
+requires       'XML::Parser';
+requires       'XML::Handler::YAWriter';
+requires       'XML::SAX::Writer';
+requires       'XML::Filter::BufferText';
+requires       'XML::Twig' => '3.41';
+requires       'IO::Scalar';
+requires       'IO::CaptureOutput';
+requires       'XML::XPathEngine';
+requires       'YAML::XS';
+
+requires       'Encode' => '2.44';
+
+# need  mysql-client mysql-server  libmysqlclient-dev
+requires       'SQL::Translator' => '0.11012';
+requires       'DBIx::Class' => '0.08199';
+requires       'DBIx::Class::Schema::Loader';
+
+requires       'URI';
+requires       'URI::Escape';
+requires       'DBD::mysql' => '4.021';
+requires       'CGI::Application' => '4.50' ;
+requires	'CGI::Application::Plugin::ConfigAuto';
+requires       'Dancer' => '1.3099';
+requires       'Plack' => '1.0002' ;
+requires       'CGI::PSGI';
+requires       'JSON';
+
+requires       'Digest::SHA1';
+
+# needs libexpat-dev for XML::Parser
+
+# needs ssl-dev
+requires       'Crypt::SSLeay';
+requires       'WWW::Facebook::API';
+requires       'WWW::Lovefilm::API';
+
+
+# needs expat
+requires       'XML::XPath'  => '1.13';
+requires       'XML::Twig'   => '3.40';
+
+requires       'WWW::Sitemap::XML';
+
+test_requires  'Test::More'  => '0.98';
+
+#recommends     'Text::CSV_XS'=> '0.50';
+#no_index       'directory'   => 'demos';
+#install_script 'myscript';
+
+WriteAll;
+

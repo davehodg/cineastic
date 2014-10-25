@@ -1,0 +1,44 @@
+
+<p>
+<h2>[% genres.0.movie_genres.0.genre.title %]</h2>
+
+  <ul>
+    [% FOREACH g =  genres %]
+    <li>
+      <!-- <img align="left" width="50" src="[% g.rt_img_thu %]"> -->
+      <a href="/site/movie/[% g.id %]/[% g.title | replace('\s+', '-')| replace(',+', '-') | replace('\.', '-') |url %]">[% g.title %] ([% g.year %])</a> ([% g.rt_critic %])
+      [% END %]
+  </ul>
+</p>
+
+
+<p>
+  [
+  [% IF page > 0 %]
+  <a href="[% c.req.uri.path %]?page=[% page - 1 %]">Prev</a> |
+  [% END %]
+  <a href="[% c.req.uri.path %]?page=[% page + 1 %]">Next</a>
+  ]
+</p>
+
+
+<h2>Decades</h2>
+<p>
+  [ 
+  <a href="[% c.req.uri.path %]?decade=1950">1950</a> |
+  <a href="[% c.req.uri.path %]?decade=1960">1960 </a>|
+  <a href="[% c.req.uri.path %]?decade=1970">1970 </a>|
+  <a href="[% c.req.uri.path %]?decade=1980">1980 </a>|
+  <a href="[% c.req.uri.path %]?decade=1990">1990 </a>|
+  <a href="[% c.req.uri.path %]?decade=2000">2000 </a>|
+  <a href="[% c.req.uri.path %]?decade=2010">2010</a> 
+  ]
+</p>
+<h2>All Genres</h2>
+<p>
+[
+[% FOREACH g = all_genres %]
+<a href="/site/genres/[% g.id %]" title="[% g.title %]">[% g.title %]</a>
+[% END %]
+]</p>
+

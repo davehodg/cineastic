@@ -1,0 +1,9 @@
+
+
+DROP TABLE IF EXISTS genre;
+CREATE TABLE genre (
+       id          INT NOT NULL AUTO_INCREMENT,
+       title       varchar(32) NOT NULL,
+       PRIMARY KEY (id),
+) ENGINE InnoDB CHARACTER SET utf8;
+

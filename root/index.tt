@@ -1,0 +1,14 @@
+
+<h2>Latest Reviews</h2>
+<div class="entry-content" id="page-content">
+  <ul>
+    [% FOREACH r IN reviews  %] 
+    <li>
+      <b><a href="/movie/[% r.movie.id %]">[% r.movie.title %]</a></b>&nbsp;
+      <i>([% r.updated.ymd %])</a></i>
+             [% i = 1 ; WHILE i <= r.rating ; star ; i = i + 1 ; END %]
+      [% r.review %]
+    </li>
+    [% END %]
+  </ul>
+</div>
