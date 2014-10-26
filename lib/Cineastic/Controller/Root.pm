@@ -108,6 +108,10 @@ sub index  :Path :Args(0) {
 }
 
 
+sub about :Path('about') :Args(0) {
+}
+
+
 
 sub movie :Path('movie') :Args(1)   {
     my ( $self, $c, $movie_id ) = @_;
@@ -207,6 +211,65 @@ sub genres :Path('genres') :Args(1)   {
 
   $c->stash(movies => $movies) ;
 }
+
+
+
+
+sub fbauth :Local  :PathPart('fbauth') {
+  my ($self, $c) = @_;
+
+  # do the FB auth here
+  my $user = $c->authenticate({
+      scope => ['email', 'offline_access', 'publish_stream'],
+			      }, 'facebook');
+  warn "Facebook auth" . Dumper($user) ;
+  $c->detach unless $user;
+
+  # this is on the callback, we got a $user
+  my $fb = Facebook::Graph->new
+      (
+       app_id          => '488847887809771',
+       secret          => 'e9b90d72b082809dfaa62b4ce81b21cc',
+       postback        => 'http://www.cineastic.co.uk/facebook/fbauth',
+      );
+  $fb->access_token($c->user->{token});
+  my $userinf = $fb->fetch('me') ;
+  $c->log->debug("Userinf : " . Dumper($userinf)) ;
+
+  my $me = $fb->query
+      ->find('me')
+      ->select_fields(qw( id name picture email ))
+      ->request
+      ->as_hashref;
+  $c->log->debug("me : " . Dumper($me)) ;
+  my $square_picture = $me->{picture}->{data}->{url} ;
+
+  warn $square_picture;
+
+  my $user = $c->authenticate({
+			     email    => $me->{email},
+			     firstname => $userinf->{first_name},
+			     lastname  => $userinf->{last_name},
+			     password  =>  sha1_base64($me->{email} . 
+						       $userinf->{first_name}. 
+						       $userinf->{last_name}),
+
+			     picture   =>
+
+			     });
+  warn "From b/e auth" . Dumper($user) ;
+
+  
+  $c->log->debug("facebook authenticated") ;
+  $c->log->debug($user->{first_name});
+  $c->log->debug($user->{last_name});
+  $c->log->debug($user->{email});
+  
+  $c->log->debug("authenticated") ;
+  $c->response->redirect($c->uri_for('/profile/'. $c->user->{user_id}));
+}
+
+
 
 
 =head2 default
