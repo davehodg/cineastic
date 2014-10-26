@@ -101,6 +101,8 @@ requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::Plugin::Session';
 requires 'Catalyst::Plugin::Session::State::Cookie';
 requires 'Catalyst::Plugin::Session::Store::FastMmap';
+requires 'Catalyst::Model::DBIC::Schema';
+
 
 requires 'Catalyst::Authentication::Credential::Facebook::OAuth2';
 requires 'Facebook::Graph';
