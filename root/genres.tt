@@ -5,7 +5,7 @@
     [% FOREACH m IN movies %]
     <li>
       <!-- <img align="left" width="50" src="[% g.rt_img_thu %]"> -->
-      <a href="/movie/[% m.id %]/[% m.title | replace('\s+', '-')| replace(',+', '-') | replace('\.', '-') |url %]">[% m.title %] ([% m.year %])</a> ([% m.rt_critic %]%)
+      <a href="/movie/[% m.id %]">[% m.title %] ([% m.year %])</a> ([% m.rt_critic %]%)
       [% END %]
   </ul>
 </p>
@@ -37,7 +37,7 @@
 <p>
 [
 [% FOREACH g IN all_genres %]
-<a href="/site/genres/[% g.id %]" title="[% g.title %]">[% g.title %]</a>
+<a href="/genres/[% g.id %]" title="[% g.title %]">[% g.title %]</a>
 [% END %]
 ]</p>
 
