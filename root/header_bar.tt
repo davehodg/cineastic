@@ -23,8 +23,6 @@
 	  <li><a href="/profile/[% c.user.user_id %]">Hello [% c.user.firstname %]</a></li>
 	  <li><a href="/logout">Logout</a></li>
 	  [% ELSE %]
-	  <li> <a href="/register">Register</a></li>
-	  <li><a href="/login">Login</a></li>
 	  <li><a href="/fbauth">Log in with Facebook</a></li>
 	  [% END %] 
 	  <li>

@@ -20,6 +20,11 @@ use Catalyst qw/
     -Debug
     ConfigLoader
     Static::Simple
+
+    Authentication
+    Session
+    Session::Store::FastMmap
+    Session::State::Cookie
 /;
 
 extends 'Catalyst';
@@ -40,6 +45,18 @@ __PACKAGE__->config(
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
     enable_catalyst_header => 1, # Send X-Catalyst header
+
+     'Plugin::Authentication' =>
+     {       
+        default => {
+            credential => {
+                 class              => 'Facebook::OAuth2',
+                 application_id     => '488847887809771',
+		 application_secret => 'e9b90d72b082809dfaa62b4ce81b21cc',
+             },
+         }
+     }
+
 );
 
 # Start the application

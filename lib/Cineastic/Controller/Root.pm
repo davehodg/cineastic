@@ -221,17 +221,19 @@ sub fbauth :Local  :PathPart('fbauth') {
   # do the FB auth here
   my $user = $c->authenticate({
       scope => ['email', 'offline_access', 'publish_stream'],
-			      }, 'facebook');
+			      },);
   warn "Facebook auth" . Dumper($user) ;
   $c->detach unless $user;
-
+  
   # this is on the callback, we got a $user
   my $fb = Facebook::Graph->new
       (
        app_id          => '488847887809771',
        secret          => 'e9b90d72b082809dfaa62b4ce81b21cc',
-       postback        => 'http://www.cineastic.co.uk/facebook/fbauth',
+       postback        => 'http://home.hodgkinson.org:5000/fbauth',
       );
+
+
   $fb->access_token($c->user->{token});
   my $userinf = $fb->fetch('me') ;
   $c->log->debug("Userinf : " . Dumper($userinf)) ;
@@ -244,29 +246,47 @@ sub fbauth :Local  :PathPart('fbauth') {
   $c->log->debug("me : " . Dumper($me)) ;
   my $square_picture = $me->{picture}->{data}->{url} ;
 
-  warn $square_picture;
-
-  my $user = $c->authenticate({
-			     email    => $me->{email},
-			     firstname => $userinf->{first_name},
-			     lastname  => $userinf->{last_name},
-			     password  =>  sha1_base64($me->{email} . 
-						       $userinf->{first_name}. 
-						       $userinf->{last_name}),
-
-			     picture   =>
-
-			     });
-  warn "From b/e auth" . Dumper($user) ;
 
   
   $c->log->debug("facebook authenticated") ;
-  $c->log->debug($user->{first_name});
-  $c->log->debug($user->{last_name});
-  $c->log->debug($user->{email});
+  $c->log->debug($userinf->{email});
+  $c->log->debug($userinf->{first_name});
+  $c->log->debug($userinf->{last_name});
+  $c->log->debug($me->{picture}->{data}->{url});
+  $c->log->debug($c->user->{token});
+
+
   
   $c->log->debug("authenticated") ;
   $c->response->redirect($c->uri_for('/profile/'. $c->user->{user_id}));
+}
+
+
+sub profile  :PathPart('profile')    {
+    my ( $self, $c, $user_id ) = @_;
+    $self->collateral($c);
+    $c->log->debug("*** profile " . $user_id) ;
+
+    my $reviews = [ 
+	$c->model('Cineastic')->schema->resultset('Review')->search
+	(
+	 {
+	     user_id => $user_id
+	 },
+	 {
+	     order_by     => { -desc => 'me.updated' },
+	     prefetch     => 'movie',
+	 }
+	)->all ];
+    
+    $c->stash(reviews => $rest->user_reviews($c, $user_id, 999)) ;
+}
+
+
+sub logout : Local {
+    my ( $self, $c ) = @_;
+    $c->logout;
+    $c->response->redirect($c->uri_for('/'));
 }
 
 

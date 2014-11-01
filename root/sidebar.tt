@@ -16,7 +16,7 @@
     <div class="textwidget">
       <ul>
 	[% FOREACH s = suggest %]
-        <li><a href="/movie/[% s.id %]">[% s.title %] ([% s.year %])</a></li>
+        <li><a href="/movie/[% s.id %]">[% s.title %] ([% s.year %] [% s.rt_critic %])</a></li>
 	[% END %]
       </ul>
 
