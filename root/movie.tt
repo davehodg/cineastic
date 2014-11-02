@@ -66,8 +66,8 @@
 [% END %]
 
       <div class="post post-archive">
-	<a href="#" title="Review">
-	  <img width="48" height="48" src="[% c.config.staticx %]/static/images/demo_archive.png" alt="Review" />
+	<a href="/profile/[% r.user.user_id %]" title="Review">
+	  <img width="48" height="48" src="[% r.user.picture %]" alt="Review" />
 	</a>
 	<div class="rating"><div class="stars_[% r.rating %]"></div></div>
 	<h2 class="index-entry-title">

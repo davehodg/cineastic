@@ -40,6 +40,9 @@ sub collateral : Path('') {
   $c->stash(star  => encode_utf8("\x{2605}")) ;
   push( @{ $c->view('Cineastic')->include_path }, qw/root/ );
 
+
+  $c->log->debug(Dumper($c->user));
+
 }
 
 
@@ -126,13 +129,9 @@ sub movie :Path('movie') :Args(1)   {
                  'me.id' =>  $movie_id
                 },
                 {
-                 #result_class => 'DBIx::Class::ResultClass::HashRefInflator',
-                 #rows         => $self->{params}->{number} || 1,
                  prefetch => 
                  [
                   { 'products'     => 'supplier' },
-                  #{ 'movie_genres' => 'genre' },
-                  #{ 'movie_actors' => 'actor' },
                  ],
                  order_by     => { -asc => 'products.price' },
                  distinct     => 1,
@@ -154,6 +153,17 @@ sub movie :Path('movie') :Args(1)   {
                {prefetch => 'actor'})->all
                ]
               );
+
+      $c->stash(reviews =>
+              [
+               $c->model('Cineastic')->schema->resultset('Review')->search
+               ({'me.movie_id' => $movie_id},
+		{prefetch => 'user'}	)->all
+               ]
+              );
+
+    
+
 }
 
 
@@ -222,7 +232,7 @@ sub fbauth :Local  :PathPart('fbauth') {
   my $user = $c->authenticate({
       scope => ['email', 'offline_access', 'publish_stream'],
 			      },);
-  warn "Facebook auth" . Dumper($user) ;
+  # warn "Facebook auth" . Dumper($user) ;
   $c->detach unless $user;
   
   # this is on the callback, we got a $user
@@ -236,18 +246,16 @@ sub fbauth :Local  :PathPart('fbauth') {
 
   $fb->access_token($c->user->{token});
   my $userinf = $fb->fetch('me') ;
-  $c->log->debug("Userinf : " . Dumper($userinf)) ;
+  # $c->log->debug("Userinf : " . Dumper($userinf)) ;
 
   my $me = $fb->query
       ->find('me')
       ->select_fields(qw( id name picture email ))
       ->request
       ->as_hashref;
-  $c->log->debug("me : " . Dumper($me)) ;
+  # $c->log->debug("me : " . Dumper($me)) ;
   my $square_picture = $me->{picture}->{data}->{url} ;
 
-
-  
   $c->log->debug("facebook authenticated") ;
   $c->log->debug($userinf->{email});
   $c->log->debug($userinf->{first_name});
@@ -255,14 +263,23 @@ sub fbauth :Local  :PathPart('fbauth') {
   $c->log->debug($me->{picture}->{data}->{url});
   $c->log->debug($c->user->{token});
 
+  my $user = $c->model('Cineastic')->schema->resultset('User')->update_or_create(
+      {
+	  email     => $userinf->{email},
+	  firstname => $userinf->{first_name},
+	  lastname  => $userinf->{last_name},
+	  picture   => $me->{picture}->{data}->{url} ,
+	  token     => $c->user->{token},
+      });
 
   
-  $c->log->debug("authenticated") ;
-  $c->response->redirect($c->uri_for('/profile/'. $c->user->{user_id}));
+  
+  $c->log->debug("authenticated" . $user->user_id) ;
+  $c->response->redirect('/profile/' . $user->user_id);
 }
 
 
-sub profile  :PathPart('profile')    {
+sub profile  :Path('profile') :Args(1) {
     my ( $self, $c, $user_id ) = @_;
     $self->collateral($c);
     $c->log->debug("*** profile " . $user_id) ;
@@ -279,7 +296,7 @@ sub profile  :PathPart('profile')    {
 	 }
 	)->all ];
     
-    $c->stash(reviews => $rest->user_reviews($c, $user_id, 999)) ;
+    $c->stash(reviews => $reviews) ;
 }
 
 

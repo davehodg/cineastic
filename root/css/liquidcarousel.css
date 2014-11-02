@@ -1,5 +1,5 @@
 .liquid {
-	background:#313b31 url('http://www.cineastic.co.uk/static/images/bodybackground.png') repeat-y scroll 50% 0;
+	background:#313b31 url('/static/images/bodybackground.png') repeat-y scroll 50% 0;
 	border:2px solid #19301C;
 	-moz-border-radius:10px 10px 10px 10px;
 	-webkit-border-radius:10px 10px 10px 10px;
@@ -10,7 +10,7 @@
 	display:block;
 	height:126px;
 	width:64px;
-	background-image:url('http://www.cineastic.co.uk/static/images/previous.png');
+	background-image:url('/static/images/previous.png');
 	float:left;
 	margin:0;
 	padding:0;
@@ -19,7 +19,7 @@
 	display:block;
 	height:126px;
 	width:64px;
-	background-image:url('http://www.cineastic.co.uk/static/images/next.png');
+	background-image:url('/static/images/next.png');
 	float:right;
 	margin:0;
 	padding:0;
