@@ -61,7 +61,7 @@
     [% IF r.wanttosee == 0 %]
 
 [%# now test for one of our reviews... %]
-[% IF (c.user.user_id == r.user_id) && (movie.id == r.movie_id) %]
+[% IF (user.user_id == r.user_id) && (movie.id == r.movie_id) %]
 [% s = r %]
 [% END %]
 
@@ -89,7 +89,7 @@
   [% IF c.user.token %]
   <p>
     <h3>Review</h3>
-    <form method="get" action="/review">
+    <form method="POST" action="/review">
          Rating: <select name="rating">
 	<option value="1" [% IF s.rating == 1 %]selected[% END %]>1</option>
 	<option value="2" [% IF s.rating == 2 %]selected[% END %]>2</option>
