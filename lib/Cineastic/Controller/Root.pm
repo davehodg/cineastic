@@ -41,7 +41,17 @@ sub collateral : Path('') {
   push( @{ $c->view('Cineastic')->include_path }, qw/root/ );
 
 
+  $c->log->debug("ook!");
   $c->log->debug(Dumper($c->user));
+  $c->log->debug($c->user->token);
+
+  my $user = [ $c->model('Cineastic')->schema->resultset('User')->search
+      ({
+	  token => $c->user->token,
+       })->single ]->[0];
+  $c->stash(user => $user);
+  $c->log->debug($user);
+  $c->log->debug($user->email);
 
 }
 
@@ -263,19 +273,25 @@ sub fbauth :Local  :PathPart('fbauth') {
   $c->log->debug($me->{picture}->{data}->{url});
   $c->log->debug($c->user->{token});
 
-  my $user = $c->model('Cineastic')->schema->resultset('User')->update_or_create(
+  my $user = [ $c->model('Cineastic')->schema->resultset('User')->update_or_create(
       {
 	  email     => $userinf->{email},
 	  firstname => $userinf->{first_name},
 	  lastname  => $userinf->{last_name},
 	  picture   => $me->{picture}->{data}->{url} ,
 	  token     => $c->user->{token},
-      });
+      })->single ];
 
-  
-  
   $c->log->debug("authenticated" . $user->user_id) ;
   $c->response->redirect('/profile/' . $user->user_id);
+}
+
+
+
+sub logout : Local {
+    my ( $self, $c ) = @_;
+    $c->logout;
+    $c->response->redirect($c->uri_for('/'));
 }
 
 
@@ -295,19 +311,30 @@ sub profile  :Path('profile') :Args(1) {
 	     prefetch     => 'movie',
 	 }
 	)->all ];
+
     
+    
+
+   
     $c->stash(reviews => $reviews) ;
 }
 
 
-sub logout : Local {
+sub review  :Path('review') :Args(0) {
     my ( $self, $c ) = @_;
-    $c->logout;
-    $c->response->redirect($c->uri_for('/'));
+
+    $c->log->debug("*** review ***");
+    $c->log->debug(Dumper($c->request->params));
+
+    my $user = [ $c->model('Cineastic')->schema->resultset('Review')->update_or_create(
+      {
+      })->single ];
+
+
+
+    $c->response->redirect("/movie/" . $c->request->params->{'movie_id'} );
+
 }
-
-
-
 
 =head2 default
 
