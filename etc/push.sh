@@ -10,7 +10,7 @@ export PERL5LIB=lib:$PERL5LIB
 #prove -r t
 
 
-rsync -rvaz --delete . www.cineastic.co.uk:~/cineastic
+rsync -Crvaz --delete . www.cineastic.co.uk:~/cineastic
 
 #ssh www.cineastic.co.uk "(source perl5/perlbrew/etc/bashrc; cd cineastic ;  PERL5LIB=lib cpanm .)"
 
