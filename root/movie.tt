@@ -23,7 +23,6 @@
   <p>
     <img class="alignleft" src="[% movie.rt_img_det %]" align="left" alt="[% movie.title %]" />
 
-    <!-- <a href="/review/?wanttosee=1&movie_id=[% movie.id %]">[W]</a> -->
     [% movie.rt_synopsis || movie.products.description %]
     
     <div class="clear"></div>
@@ -55,11 +54,10 @@
   </p>
  
 
+[% IF reviews.0.review  %]
   <p>
     <h2>Reviews</h2>
-    [% FOREACH r = reviews %]
-    [% IF r.wanttosee == 0 %]
-
+    [% FOREACH r =  reviews %]
 [%# now test for one of our reviews... %]
 [% IF (user.user_id == r.user_id) && (movie.id == r.movie_id) %]
 [% s = r %]
@@ -81,14 +79,14 @@
 	  </div>
 	</div><!-- end .entry-meta -->
       </div><!-- end .post -->
-      [% END # foreach wanttosee %]      
       [% END # foreach reviews %]
+</p>
+  [% END %]
 
 
-
-  [% IF c.user.token %]
+  [% IF user.token %]
   <p>
-    <h3>Review</h3>
+    <h2>Write a Review</h2>
     <form method="POST" action="/review">
          Rating: <select name="rating">
 	<option value="1" [% IF s.rating == 1 %]selected[% END %]>1</option>
