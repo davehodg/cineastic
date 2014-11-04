@@ -1,0 +1,14 @@
+
+<h2 class="page-title">Search Results</h2>
+<div class="entry-content" id="page-content">
+    [% FOREACH m = movies %]
+    <p>
+     <div class="review_details">
+	<img width="64" class="alignleft" src="[% m.rt_img_det %]" align="left" alt="[% m.titl %]" />
+	<a href="/movie/[% m.id %]">[% m.title %] ([% m.year %] [% m.rating %])</a> [% m.rt_synopsis %]
+     <div class="clear"></div>
+     </div>
+     </p>
+     <div class="clear"></div>
+      [% END %]
+</div>

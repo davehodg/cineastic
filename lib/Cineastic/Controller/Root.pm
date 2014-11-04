@@ -32,28 +32,33 @@ The root page (/)
 
 =cut
 
-sub collateral : Path('') {
+
+sub auto : Private  {
   my ( $self, $c ) = @_;
+
+  $c->log->debug("*** collateral ***");
   $self->_suggest($c);
   $self->_all_genres($c);
   $c->stash(title => "Cineastic") ;
   $c->stash(star  => encode_utf8("\x{2605}")) ;
   push( @{ $c->view('Cineastic')->include_path }, qw/root/ );
 
-
-  $c->log->debug("ook!");
-  $c->log->debug(Dumper($c->user));
-  $c->log->debug($c->user->token);
-
-  my $user = [ $c->model('Cineastic')->schema->resultset('User')->search
-      ({
-	  token => $c->user->token,
-       })->single ]->[0];
-  $c->stash(user => $user);
-  $c->log->debug($user);
-  $c->log->debug($user->email);
-
+  $c->log->debug("*** auth ***");
+  # this will go in its own chained handler
+  if (defined $c->user) {
+    $c->log->debug(Dumper($c->user));
+    $c->log->debug($c->user->token);
+    my $user = [ $c->model('Cineastic')->schema->resultset('User')->search
+		 ({
+		   token => $c->user->token,
+		  })->single ]->[0];
+    $c->stash(user => $user);
+    $c->log->debug($user);
+    $c->log->debug($user->email);
+  }
+  return 1;
 }
+
 
 
 sub _suggest {
@@ -87,9 +92,10 @@ sub _all_genres {
 }
 
 
-sub index  :Path :Args(0) {
+sub index : Path : Args(0)  {
   my ( $self, $c ) = @_;
-  $self->collateral($c);
+
+  $c->log->debug('*** index ***') ;
 
   my $reviews = $c->model('Cineastic')->schema->resultset('Review')->search
     ({},
@@ -121,15 +127,16 @@ sub index  :Path :Args(0) {
 }
 
 
-sub about :Path('about') :Args(0) {
+sub about :Local {
+   my ( $self, $c ) = @_;
+  $c->log->debug("*** about ***");
 }
 
 
 
 sub movie :Path('movie') :Args(1)   {
     my ( $self, $c, $movie_id ) = @_;
-    $self->collateral($c);
-    $c->log->debug("*** movie $movie_id ");
+    $c->log->debug("*** review movie $movie_id ");
 
     $c->stash(movie =>
               [
@@ -164,23 +171,18 @@ sub movie :Path('movie') :Args(1)   {
                ]
               );
 
-      $c->stash(reviews =>
+    $c->stash(reviews =>
               [
                $c->model('Cineastic')->schema->resultset('Review')->search
                ({'me.movie_id' => $movie_id},
 		{prefetch => 'user'}	)->all
-               ]
-              );
-
-    
-
+	      ]
+	);
 }
 
 
 sub actors :Path('actors') :Args(1)   {
     my ( $self, $c, $actor_id ) = @_;
-    $self->collateral($c);
-
 
     my $movies = [  $c->model('Cineastic')->schema->resultset('Movie')->search
     (
@@ -202,7 +204,6 @@ $c->stash(movies => $movies);
 
 sub genres :Path('genres') :Args(1)   {
   my ( $self, $c, $genre_id ) = @_;
-  $self->collateral($c);
 
   my $from = $self->{params}->{decade} || 2010 ;
   my $to = ($from == 1900 ? 2020 : $from + 9) ;
@@ -280,10 +281,12 @@ sub fbauth :Local  :PathPart('fbauth') {
 	  lastname  => $userinf->{last_name},
 	  picture   => $me->{picture}->{data}->{url} ,
 	  token     => $c->user->{token},
-      })->single ];
+      }) ];
 
-  $c->log->debug("authenticated" . $user->user_id) ;
-  $c->response->redirect('/profile/' . $user->user_id);
+  $c->log->debug( $user->[0]->get_columns);
+
+  $c->log->debug("authenticated" . $user->[0]->user_id) ;
+  $c->response->redirect('/profile/' . $user->[0]->user_id);
 }
 
 
@@ -297,7 +300,6 @@ sub logout : Local {
 
 sub profile  :Path('profile') :Args(1) {
     my ( $self, $c, $user_id ) = @_;
-    $self->collateral($c);
     $c->log->debug("*** profile " . $user_id) ;
 
     my $reviews = [ 
@@ -311,11 +313,6 @@ sub profile  :Path('profile') :Args(1) {
 	     prefetch     => 'movie',
 	 }
 	)->all ];
-
-    
-    
-
-   
     $c->stash(reviews => $reviews) ;
 }
 
@@ -325,16 +322,49 @@ sub review  :Path('review') :Args(0) {
 
     $c->log->debug("*** review ***");
     $c->log->debug(Dumper($c->request->params));
+    my $user_id = $c->stash->{user}->user_id ;;
+    $c->log->debug(Dumper("user id: " . $user_id));
+    $c->log->debug("ook!" . Dumper($c->request->params->{review}[0]));
+    
 
-    my $user = [ $c->model('Cineastic')->schema->resultset('Review')->update_or_create(
+    my $user = $c->model('Cineastic')->schema->resultset('Review')->update_or_create(
       {
-      })->single ];
+	  user_id  => $user_id,
+	  movie_id => $c->request->params->{'movie_id'},
+	  rating   => $c->request->params->{rating},
+	  review   => $c->request->params->{review}[0],
+      });
 
 
 
     $c->response->redirect("/movie/" . $c->request->params->{'movie_id'} );
 
 }
+
+sub search :Path('search')    {
+  my ( $self, $c ) = @_;
+
+  my @terms = split(' ', $c->request->params->{'search'}) ;
+  foreach (@terms) {
+    $_ = "%" . $_ . "%" ;
+  }
+
+  my @terms1 = map { { title => {'-like' => $_ }}} @terms  ;
+
+  my $movies =  [ $c->model('Cineastic')->schema->resultset('Movie')->search
+		  (
+		   {
+		    -and => [ map { { title => {'-like' => $_ }}} @terms ]
+		   },
+		   {
+		    rows         => $self->{params}->{number} || 30,
+		    order_by     => { -desc => 'rating' },
+		   }
+		  )->all ];
+  $c->stash(movies => $movies) ;
+}
+
+
 
 =head2 default
 
