@@ -58,11 +58,6 @@ __PACKAGE__->table("review");
   data_type: 'smallint'
   is_nullable: 1
 
-=head2 wanttosee
-
-  data_type: 'smallint'
-  is_nullable: 1
-
 =head2 review
 
   data_type: 'varchar'
@@ -86,8 +81,6 @@ __PACKAGE__->add_columns(
   "user_id",
   { data_type => "integer", is_foreign_key => 1, is_nullable => 1 },
   "rating",
-  { data_type => "smallint", is_nullable => 1 },
-  "wanttosee",
   { data_type => "smallint", is_nullable => 1 },
   "review",
   { data_type => "varchar", is_nullable => 1, size => 255 },
@@ -171,8 +164,8 @@ __PACKAGE__->belongs_to(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07040 @ 2014-10-23 16:50:55
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ZjaRVjPYj+IYw8XfksTXqw
+# Created by DBIx::Class::Schema::Loader v0.07040 @ 2014-11-04 15:33:47
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:0b6n9icGYhzG7peA1eyaBw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

@@ -57,7 +57,7 @@ __PACKAGE__->table("user");
 
   data_type: 'char'
   is_nullable: 1
-  size: 32
+  size: 255
 
 =head2 firstname
 
@@ -77,6 +77,13 @@ __PACKAGE__->table("user");
   is_nullable: 1
   size: 255
 
+=head2 updated
+
+  data_type: 'timestamp'
+  datetime_undef_if_invalid: 1
+  default_value: current_timestamp
+  is_nullable: 0
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -87,13 +94,20 @@ __PACKAGE__->add_columns(
   "password",
   { data_type => "char", is_nullable => 1, size => 40 },
   "token",
-  { data_type => "char", is_nullable => 1, size => 32 },
+  { data_type => "char", is_nullable => 1, size => 255 },
   "firstname",
   { data_type => "char", is_nullable => 1, size => 16 },
   "lastname",
   { data_type => "char", is_nullable => 1, size => 16 },
   "picture",
   { data_type => "varchar", is_nullable => 1, size => 255 },
+  "updated",
+  {
+    data_type => "timestamp",
+    datetime_undef_if_invalid => 1,
+    default_value => \"current_timestamp",
+    is_nullable => 0,
+  },
 );
 
 =head1 PRIMARY KEY
@@ -170,8 +184,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07040 @ 2014-10-23 16:50:55
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:175wFcAaNfwY68PMUmamxg
+# Created by DBIx::Class::Schema::Loader v0.07040 @ 2014-11-04 15:33:47
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vJRXZVv/nh+RpdhQ8+AD0Q
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
