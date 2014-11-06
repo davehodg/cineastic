@@ -54,7 +54,6 @@ sub auto : Private  {
 		  })->single ]->[0];
     $c->stash(user => $user);
     $c->log->debug($user);
-    $c->log->debug($user->email);
   }
   return 1;
 }
@@ -354,16 +353,16 @@ sub search :Path('search')    {
   my $movies =  [ $c->model('Cineastic')->schema->resultset('Movie')->search
 		  (
 		   {
-		    -and => [ map { { title => {'-like' => $_ }}} @terms ]
+		       -and => [ map { { title => {'-like' => $_ }}} @terms ],
+		       rt_img_det => { '!=', undef }
 		   },
 		   {
-		    rows         => $self->{params}->{number} || 30,
-		    order_by     => { -desc => 'rating' },
+		       order_by     => { -desc => 'rating' },
+		       rows       => $self->{params}->{number} || 10,
 		   }
 		  )->all ];
   $c->stash(movies => $movies) ;
 }
-
 
 
 =head2 default

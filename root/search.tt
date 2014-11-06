@@ -1,14 +1,40 @@
 
 <h2 class="page-title">Search Results</h2>
+
+
+
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+
 <div class="entry-content" id="page-content">
-    [% FOREACH m = movies %]
-    <p>
-     <div class="review_details">
-	<img width="64" class="alignleft" src="[% m.rt_img_det %]" align="left" alt="[% m.titl %]" />
-	<a href="/movie/[% m.id %]">[% m.title %] ([% m.year %] [% m.rating %])</a> [% m.rt_synopsis %]
-     <div class="clear"></div>
-     </div>
-     </p>
-     <div class="clear"></div>
+  <table id="results" class="display" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+	<th>
+	  &nbsp;
+	</th>
+	<th>
+	  Title
+	</th>
+      </tr>
+    </thead>
+    <tbody>
+      [% FOREACH m = movies %]
+      <tr>
+	<td>
+	  <img width="64" class="alignleft" src="[% m.rt_img_det %]" align="left" alt="[% m.title %]" />
+	</td>
+	<td>
+	  <a href="/movie/[% m.id %]">[% m.title %] ([% m.year %] [% m.rating %])</a> [% m.rt_synopsis %]
+	</td>
+      </tr>
       [% END %]
+    </tbody>
+  </table>
+
+  <script>
+  $(function(){
+    $("#results").dataTable();
+  })
+  </script>
 </div>

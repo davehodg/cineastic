@@ -11,6 +11,8 @@
     
     <!-- Google Fonts Call -->
     <link href="http://fonts.googleapis.com/css?family=Brawler" rel="stylesheet" type="text/css" />
+
+
     
     <!-- Get the Stylesheet -->
     <link rel="stylesheet" href="[% c.config.staticx %]/static/css/style.css" type="text/css" media="all" />
@@ -19,8 +21,17 @@
     
     <link rel="icon" type="image/png" href="http://www.cineastic.co.uk/favicon.png" />
     <!-- Get the JS -->
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+
+<!--
     <script type="text/javascript" src="[% c.config.staticx %]/static/js/jquery.min.js"></script>
     <script type="text/javascript" src="[% c.config.staticx %]/static/js/reviewer.js"></script>
+-->
+
+    <link href="http://cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" /> 
+     <script type="text/javascript" src="http://cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
+
     
     <meta name="description" content="[% movie.0.rt_synopsis.substr(0,150) %]...">
 
@@ -35,6 +46,7 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 </script>
+
 
 [% IF c.req.path.search('/movie') %]
 <!-- Facebook opengraph tags -->
