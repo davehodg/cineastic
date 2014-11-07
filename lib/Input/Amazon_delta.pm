@@ -15,6 +15,7 @@ use Encode;
 sub new {
     my ($class) = @_ ;
     my $obj = bless {}, $class ;
+    $obj->{database} = Output::Database->new;
     return $obj ;
 }
 
@@ -50,15 +51,20 @@ sub read_input {
 		ean       => $section->first_child('item_ean')->text,
 		image_url => $section->first_child('item_image_url')->text,
 		price     => $section->first_child('item_price')->text,
-		shipping  => $section->first_child('item_shipping_charge')->text,
+		shipping  => looks_like_number($section->first_child('item_shipping_charge')->text) ?  $section->first_child('item_shipping_charge')->text : 0,
+
 		url       => $section->first_child('item_page_url')->text,
-		salesrank => $section->first_child('item_salesrank')->text,
+		salesrank => $section->first_child('item_salesrank')->text || 0,
 
 		supplier_id => 1, #{ title => "Amazon" },
 		name      => $section->first_child('item_name')->text,
 		description => $section->first_child('item_short_desc')->text,
 		);
 	    $data{url} =~ s/AssocID/davehodg-21/;
+
+            die if $data{title} !~ /Horns/;
+            #warn $section->first_child('item_name')->text;
+            # insert the description into the movie if we need to 
 	};
 	if ($@) {
 	    # if we miss data, forget it. it's probably 
@@ -67,11 +73,29 @@ sub read_input {
 	    return ;
 	}
 
-
-
 	# now is a good place to mangle the title
+        #warn $data{title};
 	$data{title} =~ s/\s\[+.*// ;
-	
+        $data{title} =~ s/\.$//;
+        #warn "!" . $data{title} . "!";
+        my $schema = $self->{database}->{schema} ;
+        my $movie = $self->{database}->{schema}->resultset('Movie')->search
+          ({
+            title => $data{title},
+           })->first;
+
+        if (defined $movie) {
+          if (($data{description} !~ /^Release Date:/) ||
+              (length($data{description}) > 100) ) {
+            $movie->rt_synopsis($data{description});
+            $movie->update;
+          }
+          #  warn Dumper($movie->get_columns($movie));
+        }
+
+          #warn Dumper(\%data);
+          #exit ;
+
 	push @{ $self->{data} }, \%data ;
 	$section->purge;            # outputs the section and frees memory
 	return ;
