@@ -96,6 +96,7 @@ sub product_save {
 	({ supplier_id => $data->[0]->{supplier_id}})->delete ;
 
     foreach my $d ( @{ $data } ) {
+        next if !defined $d->{title};
 	my $movie = $self->{schema}->resultset('Movie')->search(
 	     { title => {like => $d->{title} } } )->first;
 
