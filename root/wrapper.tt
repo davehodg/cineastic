@@ -48,13 +48,13 @@
 </script>
 
 
-[% IF c.req.path.search('/movie') %]
+[% IF c.req.path.substr(0,5) == "movie" %]
 <!-- Facebook opengraph tags -->
-<meta property="og:title" content="[% movie.0.title %]" />
+<meta property="og:title" content="[% movie.title %]" />
 <meta property="og:type" content="movie" />
 <meta property="og:url" content="[% c.req.base %][% c.req.path %]" />
-<meta property="og:image" content="[% movie.0.rt_img_det || movie.0.products.0.image_url %]" />
-<meta property="og:site_name" content="[% title %]" />
+<meta property="og:image" content="[% movie.rt_img_det %]" />
+<meta property="og:site_name" content="Cineastic" />
 <meta property="fb:app_id" content="488847887809771" />
 [% END %]
 
