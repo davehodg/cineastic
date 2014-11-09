@@ -12,5 +12,6 @@ curl ftp://ftp.funet.fi/pub/mirrors/ftp.imdb.com/pub/ratings.list.gz -o /tmp/rat
 perl etc/load_imdb.pl
 perl etc/load_amazon.pl
 perl etc/load_rotten.pl
+perl etc/load_youtube_trailer.pl
 perl etc/load_thehut.pl
 

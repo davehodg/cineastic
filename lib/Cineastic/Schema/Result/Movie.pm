@@ -99,6 +99,12 @@ __PACKAGE__->table("movie");
   default_value: current_timestamp
   is_nullable: 0
 
+=head2 trailer
+
+  data_type: 'varchar'
+  is_nullable: 1
+  size: 255
+
 =cut
 
 __PACKAGE__->add_columns(
@@ -129,6 +135,8 @@ __PACKAGE__->add_columns(
     default_value => \"current_timestamp",
     is_nullable => 0,
   },
+  "trailer",
+  { data_type => "varchar", is_nullable => 1, size => 255 },
 );
 
 =head1 PRIMARY KEY
@@ -222,8 +230,8 @@ __PACKAGE__->has_many(
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07040 @ 2014-10-23 16:50:55
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:vUPzLCIrgOI0umY48/eJwA
+# Created by DBIx::Class::Schema::Loader v0.07040 @ 2014-11-09 18:25:10
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:PX2f4a2gBwDPUHs68KyaNQ
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

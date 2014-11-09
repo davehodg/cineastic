@@ -19,6 +19,11 @@
     ]
   </p>
 
+[% IF movie.trailer %]
+<p>
+<embed width="600" height="450" src="[% movie.trailer %]">
+</p>
+[% END %]
 
   <p>
     <img class="alignleft" src="[% movie.rt_img_det %]" align="left" alt="[% movie.title %]" />

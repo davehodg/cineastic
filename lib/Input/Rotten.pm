@@ -1,3 +1,5 @@
+#!/usr/bin/env perl
+
 package Input::Rotten ;
 
 use strict ;
@@ -41,7 +43,7 @@ sub read_input {
     my $m_rs = $self->{database}->{schema}->resultset('Movie')->search
       ({
 	  year => { '>=' => 2009 },
-	#title => 'Haywire',
+          title => 'Horns',
        },
        {
 	order_by => { -desc => 'me.rating' },
@@ -77,6 +79,8 @@ sub read_input {
       if ( defined $get ) {
 	$movie_data = $self->{json}->decode($get) ;
 
+
+        warn Dumper($movie_data);
 
 	for my $i (0..1) {
 	    my $rt_id = $movie_data->{movies}->[$i]->{id} ;

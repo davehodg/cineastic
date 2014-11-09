@@ -7,7 +7,7 @@ use warnings ;
 use Data::Dumper ;
 use XML::Twig;
 use Encode;
-
+use Scalar::Util qw/looks_like_number/;
 
 #use BGUtil ;
 
@@ -61,8 +61,6 @@ sub read_input {
 		description => $section->first_child('item_short_desc')->text,
 		);
 	    $data{url} =~ s/AssocID/davehodg-21/;
-
-            die if $data{title} !~ /Horns/;
             #warn $section->first_child('item_name')->text;
             # insert the description into the movie if we need to 
 	};
@@ -77,23 +75,31 @@ sub read_input {
         #warn $data{title};
 	$data{title} =~ s/\s\[+.*// ;
         $data{title} =~ s/\.$//;
-        #warn "!" . $data{title} . "!";
+        #warn $data{title} ;
+        return if $data{title} !~ /The Shawshank/;
+
+
         my $schema = $self->{database}->{schema} ;
         my $movie = $self->{database}->{schema}->resultset('Movie')->search
           ({
             title => $data{title},
-           })->first;
+           })->first ;
+       
 
         if (defined $movie) {
           if (($data{description} !~ /^Release Date:/) ||
               (length($data{description}) > 100) ) {
-            $movie->rt_synopsis($data{description});
-            $movie->update;
+              
+              $movie->rt_synopsis($data{description});
+              if (defined $section->first_child('item_image_large')) {
+                  $movie->('rt_img_det') = $section->first_child('item_image_large')->first;
+              }
+              $movie->update;
           }
           #  warn Dumper($movie->get_columns($movie));
         }
 
-          #warn Dumper(\%data);
+          warn Dumper(\%data);
           #exit ;
 
 	push @{ $self->{data} }, \%data ;
