@@ -76,7 +76,7 @@ sub read_input {
 	$data{title} =~ s/\s\[+.*// ;
         $data{title} =~ s/\.$//;
         #warn $data{title} ;
-        return if $data{title} !~ /The Shawshank/;
+	#return if $data{title} !~ /The Shawshank/;
 
 
         my $schema = $self->{database}->{schema} ;
@@ -91,15 +91,17 @@ sub read_input {
               (length($data{description}) > 100) ) {
               
               $movie->rt_synopsis($data{description});
-              if (defined $section->first_child('item_image_large')) {
-                  $movie->('rt_img_det') = $section->first_child('item_image_large')->first;
+              if (defined $section->first_child('item_image_url_large')) {
+		  #warn "I: " . $data{title} . " " . $section->first_child('item_image_url_large')->text;
+		  $movie->rt_img_det($section->first_child('item_image_url_large')->text);
+
               }
               $movie->update;
           }
           #  warn Dumper($movie->get_columns($movie));
         }
 
-          warn Dumper(\%data);
+	#warn Dumper(\%data);
           #exit ;
 
 	push @{ $self->{data} }, \%data ;

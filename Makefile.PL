@@ -45,6 +45,7 @@ requires       'XML::Handler::YAWriter';
 requires       'XML::SAX::Writer';
 requires       'XML::Filter::BufferText';
 requires       'XML::Twig' => '3.41';
+requires	'Plack::Handler::Twiggy';
 requires       'IO::Scalar';
 requires       'IO::CaptureOutput';
 requires       'XML::XPathEngine';
@@ -66,7 +67,7 @@ requires       'Dancer' => '1.3099';
 requires       'Plack' => '1.0002' ;
 requires       'CGI::PSGI';
 requires       'JSON';
-
+requires	'DateTime::Format::MySQL';
 requires       'Digest::SHA1';
 
 # needs libexpat-dev for XML::Parser
