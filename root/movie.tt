@@ -26,7 +26,7 @@
 [% END %]
 
   <p>
-    <img class="alignleft" src="[% movie.rt_img_det %]" align="left" alt="[% movie.title %]" />
+    <img class="alignleft" width="200" src="[% movie.rt_img_det %]" align="left" alt="[% movie.title %]" />
 
     [% movie.rt_synopsis || movie.products.description %]
     
@@ -34,8 +34,10 @@
     [% IF movie.rt_critic %]
     <div id="post_list_wrap">
       <div class="post post-archive">
+
 	[% IF  movie.rt_critic >= 60 ; image = "fresh.png" ; ELSE ; image = "rotten.png"; END %]
 	<img class="alignleft" src="[% c.config.staticx %]/static/images/[% image %]" width="120" alt="[% image %]">Rotten Tomatoes Rating: [% movie.rt_critic %]%<br />
+
 	<a href="http://www.rottentomatoes.com/m/[% movie.rt_id %]">View on Rotten Tomatoes</a><br />
 	<a href="http://www.imdb.com/title/tt[% movie.rt_imdb %]">View on IMDB</a><br />
       </div><!-- end .post -->
@@ -68,25 +70,36 @@
 [% s = r %]
 [% END %]
 
-      <div class="post post-archive">
-	<a href="/profile/[% r.user.user_id %]" title="Review">
-	  <img width="48" height="48" src="[% r.user.picture %]" alt="Review" />
-	</a>
-	<div class="rating"><div class="stars_[% r.rating %]"></div></div>
-	<h2 class="index-entry-title">
-	  <a href="#" title="Review">[% r.review %]</a>
-	</h2>
-	<div class="archive-meta entry-meta-index">
-	  <span>
-	    <!-- Posted in <a href="#" title="View all posts in Reviews" rel="category tag">Reviews</a> by --><a href="/profile/[% r.user_id %]" title="">[% r.user.firstname %] [% r.user.lastname %]</a>
-	  </span>
-	  <!--	  <div class="additional-meta_comments"><a href="#" title="Comment on Post Title Here">2 Comments</a> -->
-	  </div>
-	</div><!-- end .entry-meta -->
-      </div><!-- end .post -->
-      [% END # foreach reviews %]
+    <div class="post post-archive">
+      <a href="/profile/[% r.user.user_id %]" title="Review">
+	<img width="48" height="48" src="[% r.user.picture %]" alt="Review" />
+      </a>
+      <div class="rating"><div class="stars_[% r.rating %]"></div></div>
+      <h2 class="index-entry-title">
+	<a href="#" title="Review">[% r.review %]</a>
+      </h2>
+      <div class="archive-meta entry-meta-index">
+	<span>
+	  <!-- Posted in <a href="#" title="View all posts in Reviews" rel="category tag">Reviews</a> by --><a href="/profile/[% r.user_id %]" title="">[% r.user.firstname %] [% r.user.lastname %]</a>
+	</span>
+	<!--	  <div class="additional-meta_comments"><a href="#" title="Comment on Post Title Here">2 Comments</a> -->
+      </div>
+    </div><!-- end .entry-meta -->
+</div><!-- end .post -->
+[% END # foreach reviews %]
+</p>
+
+<p>
+  <span class='st_facebook_large' displayText='Facebook'></span>
+  <span class='st_twitter_large' displayText='Tweet'></span>
+  <span class='st_linkedin_large' displayText='LinkedIn'></span>
+  <span class='st_pinterest_large' displayText='Pinterest'></span>
+  <span class='st_sharethis_large' displayText='ShareThis'></span>
+  <span class='st_email_large' displayText='Email'></span>
 </p>
   [% END %]
+
+
 
 
   [% IF user.token %]
