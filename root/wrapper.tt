@@ -15,9 +15,9 @@
 
     
     <!-- Get the Stylesheet -->
-    <link rel="stylesheet" href="[% c.config.staticx %]/static/css/style.css" type="text/css" media="all" />
-    <link rel="stylesheet" href="[% c.config.staticx %]/static/css/style.css.carousel" type="text/css" media="all" />
-    <link rel="stylesheet" href="[% c.config.staticx %]/static/css/liquidcarousel.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="/static/css/style.css.carousel" type="text/css" media="all" />
+    <link rel="stylesheet" href="/static/css/liquidcarousel.css" type="text/css" media="all" />
     
     <link rel="icon" type="image/png" href="http://www.cineastic.co.uk/favicon.png" />
     <!-- Get the JS -->
@@ -25,15 +25,15 @@
   <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
 
 <!--
-    <script type="text/javascript" src="[% c.config.staticx %]/static/js/jquery.min.js"></script>
-    <script type="text/javascript" src="[% c.config.staticx %]/static/js/reviewer.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/reviewer.js"></script>
 -->
 
     <link href="http://cdn.datatables.net/1.10.3/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" /> 
      <script type="text/javascript" src="http://cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js"></script>
 
     
-    <meta name="description" content="[% movie.0.rt_synopsis.substr(0,150) %]...">
+    <meta name="description" content="[% movie.0.rt_synopsis.substr(0,150) %]..." />
 
 <script type="text/javascript">
   var _gaq = _gaq || [];
@@ -50,16 +50,24 @@
 
 [% IF c.req.path.substr(0,5) == "movie" %]
 <!-- Facebook opengraph tags -->
+
 <meta property="og:title" content="[% movie.title %]" />
 <meta property="og:type" content="movie" />
 <meta property="og:url" content="[% c.req.base %][% c.req.path %]" />
 <meta property="og:image" content="[% movie.rt_img_det %]" />
 <meta property="og:site_name" content="Cineastic" />
 <meta property="fb:app_id" content="488847887809771" />
+
+<!-- sharing collateral -->
+
+<script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "2b915e34-040d-4f0c-879e-9a7f6e9ae486", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
 [% END %]
 
-<script type="text/javascript" src="[% c.config.staticx %]/static/js/jquery-1.4.2.min.js"></script>
-<script type="text/javascript" src="[% c.config.staticx %]/static/js/jquery.liquidcarousel.js"></script>
+<script type="text/javascript" src="/static/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.liquidcarousel.js"></script>
 <script type="text/javascript">
 	<!--
 		$(document).ready(function() {

@@ -4,7 +4,7 @@
       <a href="/" title="Cineastic" class="left"><img src="[% c.config.staticx %]/static/images/Cineastic.png" alt="Cineastic" id="logo" /></a>
       <div id="header_widget">
 
-        <a href="http://www.awin1.com/cread.php?s=200259&v=2605&q=104366&r=159810"><img src="http://www.awin1.com/cshow.php?s=200259&v=2605&q=104366&r=159810" border="0"></a>
+      <!--        <a href="http://www.awin1.com/cread.php?s=200259&v=2605&q=104366&r=159810"><img src="http://www.awin1.com/cshow.php?s=200259&v=2605&q=104366&r=159810" border="0"></a> -->
                                 
 
       </div>
