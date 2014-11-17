@@ -15,3 +15,4 @@ perl etc/load_rotten.pl
 perl etc/load_youtube_trailer.pl
 perl etc/load_thehut.pl
 
+etc/write_sitemap.pl

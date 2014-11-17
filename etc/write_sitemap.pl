@@ -36,4 +36,4 @@ foreach my $r (@releases) {
     $map->add( 'http://www.cineastic.co.uk/movie/' . $r->{id} );
 }
 
-$map->write( '../approot-fe/root/sitemap.xml.gz' );
+$map->write( 'root/sitemap.xml.gz' );
